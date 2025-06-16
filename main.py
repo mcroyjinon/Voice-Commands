@@ -61,7 +61,7 @@ while True:
                 keyboard.type(command)
                 keyboard.press(Key.enter)
 
-            if 'shutdown' in text:
+            if 'shut down' in text:
                 os.system('shutdown /s /t 1')
 
     except Exception as e:
