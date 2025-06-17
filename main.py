@@ -11,8 +11,9 @@ tts = pyttsx3.init()
 tts.setProperty('voice','HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_JA-JP_HARUKA_11.0')
 
 keyboard = Controller()
+config = ConfigParser()
 
-config = ConfigParser
+debug = False
 
 def get_command(string, lookfor):
     for command in lookfor:
@@ -29,7 +30,8 @@ while True:
             text = recognizer.recognize_google(audio)
             text = text.lower()
 
-            print(text)
+            if debug:
+                print(text)
 
             if not text.startswith(('hey sylvia','sylvia')): continue
 
