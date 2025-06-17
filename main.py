@@ -13,7 +13,8 @@ tts.setProperty('voice','HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices
 keyboard = Controller()
 config = ConfigParser()
 
-debug = False
+debug = True
+USER = 'nealm'
 
 def get_command(string, lookfor):
     for command in lookfor:
@@ -37,16 +38,10 @@ while True:
 
             print(f'Recognized call: {text}')
 
-            if 'open' in text or 'run' in text:
-                command = get_command(text,['open','run'])
-                
-
-            if 'search' in text:
-                command = get_command(text,['search'])
-
-            if 'shut down' in text:
-                
-
+            for command in commands.keys():
+                if command in text:
+                    param = get_command(text, command)
+                    commands[command](param, config, USER)
     except Exception as e:
         print(e)
         recognizer = speech_recognition.Recognizer()
