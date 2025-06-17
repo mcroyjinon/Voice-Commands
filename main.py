@@ -13,7 +13,7 @@ tts.setProperty('voice','HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices
 keyboard = Controller()
 config = ConfigParser()
 
-debug = True
+debug = False
 USER = 'nealm'
 
 def get_command(string, lookfor):
@@ -42,9 +42,11 @@ while True:
                 if command in text:
                     param = get_command(text, command)
                     commands[command](param, config, USER)
-
-            if 'debug' in text:
-                debug = True
+                    break
+            else: 
+                if'debug' in text:
+                    debug = True
+                    print(debug)
     except Exception as e:
         print(e)
         recognizer = speech_recognition.Recognizer()
