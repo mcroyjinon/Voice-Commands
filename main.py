@@ -36,7 +36,8 @@ while True:
 
             if not text.startswith(('hey sylvia','sylvia')): continue
 
-            print(f'Recognized call: {text}')
+            output = f'Recognized call: {text}'
+            print(output)
 
             for command in commands.keys():
                 if command in text:
@@ -46,7 +47,7 @@ while True:
             else: 
                 if'debug' in text:
                     debug = True
-                    print(debug)
+                    tts.say(f'Debug is now {debug}')
     except Exception as e:
         print(e)
         recognizer = speech_recognition.Recognizer()
