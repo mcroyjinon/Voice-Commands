@@ -10,14 +10,11 @@ recognizer = speech_recognition.Recognizer()
 tts = pyttsx3.init()
 tts.setProperty('voice','HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_JA-JP_HARUKA_11.0')
 
-config = ConfigParser()
-config.read('config.ini')
-
-directories = dict(config['applications'])
-USER='nealm'
-desktop = os.listdir(f'c:\\Users\\{USER}\\Desktop')
-
 keyboard = Controller()
+config = ConfigParser()
+
+debug = True
+USER = 'nealm'
 
 def get_command(string, lookfor):
     for command in lookfor:
@@ -34,37 +31,17 @@ while True:
             text = recognizer.recognize_google(audio)
             text = text.lower()
 
-            print(text)
+            if debug:
+                print(text)
 
             if not text.startswith(('hey sylvia','sylvia')): continue
 
             print(f'Recognized call: {text}')
 
-            if 'open' in text or 'run' in text:
-                command = get_command(text,['open','run'])
-                for app in desktop:
-                    if app.split('.')[0].lower() in command:
-                        os.startfile(f'c:\\Users\\{USER}\\Desktop\\{app}')
-                        tts.say(f'Opening {app}')
-                        tts.runAndWait()
-                        break
-                else:
-                    for app in directories.keys():
-                        if app in command:
-                            os.startfile(directories[app])
-                            tts.say(f'Opening {app}')
-                            tts.runAndWait()
-
-            if 'search' in text:
-                os.startfile(f'c:\\Users\\{USER}\\Desktop\\Opera GX Browser.lnk')
-                time.sleep(3)
-                command = get_command(text,['search'])
-                keyboard.type(command)
-                keyboard.press(Key.enter)
-
-            if 'shut down' in text:
-                os.system('shutdown /s /t 1')
-
+            for command in commands.keys():
+                if command in text:
+                    param = get_command(text, command)
+                    commands[command](param, config, USER)
     except Exception as e:
         print(e)
         recognizer = speech_recognition.Recognizer()
