@@ -4,6 +4,7 @@ import os
 from configparser import ConfigParser
 from pynput.keyboard import Key, Controller
 import time
+from commands import commands
 
 recognizer = speech_recognition.Recognizer()
 tts = pyttsx3.init()
