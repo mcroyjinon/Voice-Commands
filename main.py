@@ -42,7 +42,7 @@ while True:
             for command in commands.keys():
                 if command in text:
                     param = get_command(text, command)
-                    commands[command](param, config, USER)
+                    commands[command](param=param, config=config, USER=USER)
                     break
             else: 
                 if'debug' in text:

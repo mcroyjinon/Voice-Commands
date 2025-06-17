@@ -11,20 +11,20 @@ keyboard = Controller()
 commands = {}
 
 
-def open_application(param, config, USER):
+def open_application(**kwargs):
 
-    desktop = os.listdir(f'c:\\Users\\{USER}\\Desktop')
-    directories = dict(config['applications'])
+    desktop = os.listdir(f'c:\\Users\\{kwargs['USER']}\\Desktop')
+    directories = dict(kwargs['config']['applications'])
 
     for app in desktop:
-        if app.split('.')[0].lower() in param:
-            os.startfile(f'c:\\Users\\{USER}\\Desktop\\{app}')
+        if app.split('.')[0].lower() in kwargs['param']:
+            os.startfile(f'c:\\Users\\{kwargs['USER']}\\Desktop\\{app}')
             tts.say(f'Opening {app}')
             tts.runAndWait()
             break
     else:
         for app in directories.keys():
-            if app in param:
+            if app in kwargs['param']:
                 os.startfile(directories[app])
                 tts.say(f'Opening {app}')
                 tts.runAndWait()
@@ -32,14 +32,14 @@ commands['open'] = open_application
 commands['run'] = open_application
 
 
-def web_search(param, config, USER):
-    os.startfile(f'c:\\Users\\{USER}\\Desktop\\Opera GX Browser.lnk')
+def web_search(**kwargs):
+    os.startfile(f'c:\\Users\\{kwargs['USER']}\\Desktop\\Opera GX Browser.lnk')
     time.sleep(3)
-    keyboard.type(param)
+    keyboard.type(kwargs['param'])
     keyboard.press(Key.enter)
 commands['search'] = web_search
 
 
-def shutdown(param, config, USER):
+def shutdown(**kwargs):
     os.system('shutdown /s /t 1')
 commands['shut down'] = shutdown
