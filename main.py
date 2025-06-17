@@ -10,14 +10,9 @@ recognizer = speech_recognition.Recognizer()
 tts = pyttsx3.init()
 tts.setProperty('voice','HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_JA-JP_HARUKA_11.0')
 
-config = ConfigParser()
-config.read('config.ini')
-
-directories = dict(config['applications'])
-USER='nealm'
-desktop = os.listdir(f'c:\\Users\\{USER}\\Desktop')
-
 keyboard = Controller()
+
+config = ConfigParser
 
 def get_command(string, lookfor):
     for command in lookfor:
@@ -42,18 +37,7 @@ while True:
 
             if 'open' in text or 'run' in text:
                 command = get_command(text,['open','run'])
-                for app in desktop:
-                    if app.split('.')[0].lower() in command:
-                        os.startfile(f'c:\\Users\\{USER}\\Desktop\\{app}')
-                        tts.say(f'Opening {app}')
-                        tts.runAndWait()
-                        break
-                else:
-                    for app in directories.keys():
-                        if app in command:
-                            os.startfile(directories[app])
-                            tts.say(f'Opening {app}')
-                            tts.runAndWait()
+                
 
             if 'search' in text:
                 os.startfile(f'c:\\Users\\{USER}\\Desktop\\Opera GX Browser.lnk')
