@@ -42,6 +42,9 @@ while True:
                 if command in text:
                     param = get_command(text, command)
                     commands[command](param, config, USER)
+
+            if 'debug' in text:
+                debug = True
     except Exception as e:
         print(e)
         recognizer = speech_recognition.Recognizer()
