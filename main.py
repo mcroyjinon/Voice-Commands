@@ -45,7 +45,7 @@ while True:
                 command = get_command(text,['search'])
 
             if 'shut down' in text:
-                os.system('shutdown /s /t 1')
+                
 
     except Exception as e:
         print(e)

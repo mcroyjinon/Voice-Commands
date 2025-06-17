@@ -10,6 +10,7 @@ keyboard = Controller()
 
 commands = {}
 
+
 def open_application(command, config, USER):
 
     desktop = os.listdir(f'c:\\Users\\{USER}\\Desktop')
@@ -27,14 +28,18 @@ def open_application(command, config, USER):
                 os.startfile(directories[app])
                 tts.say(f'Opening {app}')
                 tts.runAndWait()
-
 commands['open'] = open_application
 commands['run'] = open_application
+
 
 def web_search(command, USER):
     os.startfile(f'c:\\Users\\{USER}\\Desktop\\Opera GX Browser.lnk')
     time.sleep(3)
     keyboard.type(command)
     keyboard.press(Key.enter)
-
 commands['search'] = web_search
+
+
+def shutdown():
+    os.system('shutdown /s /t 1')
+commands['shut down'] = shutdown
