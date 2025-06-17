@@ -42,11 +42,7 @@ while True:
                 
 
             if 'search' in text:
-                os.startfile(f'c:\\Users\\{USER}\\Desktop\\Opera GX Browser.lnk')
-                time.sleep(3)
                 command = get_command(text,['search'])
-                keyboard.type(command)
-                keyboard.press(Key.enter)
 
             if 'shut down' in text:
                 os.system('shutdown /s /t 1')

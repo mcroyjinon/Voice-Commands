@@ -1,8 +1,12 @@
 import os
 import pyttsx3
+import time
+from pynput.keyboard import Key, Controller
 
 tts = pyttsx3.init()
 tts.setProperty('voice','HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_JA-JP_HARUKA_11.0')
+
+keyboard = Controller()
 
 commands = {}
 
@@ -26,3 +30,11 @@ def open_application(command, config, USER):
 
 commands['open'] = open_application
 commands['run'] = open_application
+
+def web_search(command, USER):
+    os.startfile(f'c:\\Users\\{USER}\\Desktop\\Opera GX Browser.lnk')
+    time.sleep(3)
+    keyboard.type(command)
+    keyboard.press(Key.enter)
+
+commands['search'] = web_search
