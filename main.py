@@ -17,15 +17,14 @@ debug = False
 USER = 'nealm'
 
 def get_command(string, lookfor):
-    for command in lookfor:
-        if not command in string: continue
-        return string[string.find(command)+len(command)+1:]
+    if not lookfor in string: return
+    return string[string.find(lookfor)+len(lookfor)+1:]
 
 while True:
     config.read('config.ini')
     try:
         with speech_recognition.Microphone() as mic:
-            recognizer.adjust_for_ambient_noise(mic,1)
+            recognizer.adjust_for_ambient_noise(mic,0.2)
             audio = recognizer.listen(mic)
 
             text = recognizer.recognize_google(audio)
@@ -48,6 +47,7 @@ while True:
                 if'debug' in text:
                     debug = True
                     tts.say(f'Debug is now {debug}')
+                    tts.runAndWait()
     except Exception as e:
         print(e)
         recognizer = speech_recognition.Recognizer()
